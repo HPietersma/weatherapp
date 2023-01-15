@@ -1,4 +1,4 @@
-//import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,31 +10,34 @@ import About from './screens/about.js';
 
 const Tab = createBottomTabNavigator();
 
+
 export default function App() {
   return (
-    // <View style={styles.container}>
-    //   <Weather/>
-    // </View>
-
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
+          tabBarShowLabel: false,
           tabBarIcon: ({focused, size, colour}) => {
             let iconName;
+            colour = '#d3dce8';
 
             if (route.name == 'Weather') {
-              iconName = focused ? 'partly-sunny-outline' : 'partly-sunny'
+              iconName = focused ?  'partly-sunny' : 'partly-sunny-outline'
             }
             else if (route.name == 'Settings') {
-              iconName = focused ? 'settings-outline' : 'settings'
+              iconName = focused ?  'settings' : 'settings-outline'
             }
             else if (route.name == 'About') {
-              iconName = focused ? 'information-circle-outline' : 'information-circle'
+              iconName = focused ?  'information-circle' : 'information-circle-outline'
             }
 
-
-            return <Ionic name={iconName} size={size} colour={colour} />
-          }
+            return <Ionic name={iconName} size={size} color={colour} />
+          },
+          tabBarStyle: [
+            {
+              backgroundColor: '#46548a'
+            }
+          ],
         })}
       >
         <Tab.Screen 
@@ -49,8 +52,8 @@ export default function App() {
         />
         <Tab.Screen 
           name='Settings'
-          component={Settings}
           options={{ headerShown: false }}
+          children={() => <Settings/>}
         />
       </Tab.Navigator>
     </NavigationContainer>
